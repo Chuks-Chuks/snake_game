@@ -31,43 +31,28 @@ while is_game_on:
     time.sleep(0.1)
     snake.move()
 
+    # Detect if the score is equal to five
     # Detect collision with the food. Remember snake.segments[0] is the head of the snake. Which has been turned
     # to an attribute in the snake class as 'self.head'.
 
-    # Just discovered the big food distance has to be increased.
-    if snake.head.distance(food) < 17:
-        meal_count += 1
-        if meal_count % 5 == 0:
-            food.big_meal()
-            score.big_meal()
+    if snake.head.distance(food) < 15:
+        score.update_score(food.score)
+        score.meal_count += 1
+        if (score.meal_count % 5 == 0) and (score.meal_count != 0):
+            food.big_food()
         else:
             food.small_food()
-            score.update_score()
         snake.add_segment()
-
-    # if snake.head.distance(food) < 20:
-    #     if meal_count % 5 == 0:
-    #         food.big_meal()
-    #         snake.add_segment()
-    #         score.big_meal()
-
     # Detect collision with the wall
     # Trying to make this for hard play.
     if game_level == 'hard':
-        if snake.head.xcor() > 295 or snake.head.xcor() < -295 or snake.head.ycor() > 295 or snake.head.ycor() < -295:
+        if snake.hard_level():
             is_game_on = False
             score.game_over_update()
 
     # If I want the snake to come out from the other side of the screen and not getting lost then
     if game_level == 'easy':
-        if snake.head.xcor() > 295 or snake.head.xcor() < -295:
-            new_x = -1 * snake.head.xcor()
-            snake.head.goto(new_x, snake.head.ycor())
-
-        if snake.head.ycor() > 295 or snake.head.ycor() < -295:
-            new_y = -1 * snake.head.ycor()
-            snake.head.goto(snake.head.xcor(), new_y)
-
+        snake.easy_level()
     # Detecting collision with the snake's tail using my code. IT WORKED!!!!
     # for number in range(1, len(snake.segments)-1, 1):
     #     if snake.head.distance(snake.segments[number]) < 10:

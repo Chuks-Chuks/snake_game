@@ -6,6 +6,7 @@ class Snake:
     DOWN = 270
     LEFT = 180
     RIGHT = 0
+    BOUNDARY = 295
 
     def __init__(self):
         self.x_positions = (0, -20, -40)
@@ -53,3 +54,23 @@ class Snake:
         new_y_coordinate = self.tail.ycor()
         tim.goto(x=new_x_coordinate, y=new_y_coordinate)
         self.segments.append(tim)
+
+    def easy_level(self):
+        if self.head.xcor() > self.BOUNDARY or self.head.xcor() < -self.BOUNDARY:
+            if self.head.xcor() > self.BOUNDARY:
+                new_x = -1 * int(self.head.xcor() - 20)
+            else:
+                new_x = -1 * int(self.head.xcor() + 20)
+            self.head.goto(new_x, self.head.ycor())
+
+        if self.head.ycor() > 295 or self.head.ycor() < -295:
+            if self.head.ycor() > self.BOUNDARY:
+                new_y = -1 * int(self.head.ycor() - 10)
+            else:
+                new_y = -1 * int(self.head.ycor() + 10)
+            self.head.goto(self.head.xcor(), new_y)
+
+    def hard_level(self):
+        if self.head.xcor() > self.BOUNDARY or self.head.xcor() < -self.BOUNDARY or self.head.ycor() > self.BOUNDARY \
+                or self.head.ycor() < -self.BOUNDARY:
+            return True
