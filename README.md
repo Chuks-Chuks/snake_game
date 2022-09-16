@@ -10,3 +10,8 @@ and finally what would I do without my darling OOP!
 
 Once tackled, I would update but for now enjoy this. 
 
+The edge cases have been resolved. 
+
+ENJOY!
+
+
